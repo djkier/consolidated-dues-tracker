@@ -43,7 +43,12 @@ export default function MainTable() {
                     <Category type={key} key={key}>
                         {CATEGORY_AND_ITEMS[key].map((item, i)=> {
                             return (
-                                <ExpenseRow value={inputValues[item]} onChange={(event) => handleChange(item, event)} key={item} description={item} amount="1000" lastOfType={i === CATEGORY_AND_ITEMS[key].length - 1} />
+                                <ExpenseRow value={inputValues[item]} 
+                                    onChange={(event) => handleChange(item, event)} 
+                                    key={item} 
+                                    description={item} 
+                                    amount="1000" 
+                                    lastOfType={i === CATEGORY_AND_ITEMS[key].length - 1} />
                             );
                         })}
                     </Category>
@@ -67,7 +72,7 @@ function ExpenseRow({ description, amount, lastOfType, customRowStyle, customDes
     const newCustomRowStyle = customRowStyle ? customRowStyle : '';
     const borderOfNoneLastType = !lastOfType ? `border-b border-cyan-600` : '';
     return (
-        <div className={`${borderOfNoneLastType} ${newCustomRowStyle} flex justify-between pl-4 pr-2`}>
+        <div className={`${borderOfNoneLastType} ${newCustomRowStyle} flex justify-between px-4`}>
             <dt className={`${newCustomDescStyle} border-r-1 w-[13rem] py-[2px]`}>{description}</dt>
             <dd className="py-[2px]">
                 <InputComponent value={value} onChange={onChange}/>
