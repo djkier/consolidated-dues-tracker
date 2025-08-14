@@ -27,6 +27,13 @@ export default function MainTable() {
         Object.entries(inputValues).forEach(item => console.log(`${item[0]} = ${item[1]}`));
     }, [inputValues])
 
+    const handleChange = (item, event) => {
+
+        setInputValues((prev) => ({
+            ...prev,
+            [item]: event.target.value
+        }))
+    };
     
 
     return (
@@ -34,10 +41,9 @@ export default function MainTable() {
             {Object.keys(CATEGORY_AND_ITEMS).map(key => {
                 return (
                     <Category type={key} key={key}>
-                        
                         {CATEGORY_AND_ITEMS[key].map((item, i)=> {
                             return (
-                                <ExpenseRow key={item} description={item} amount="1000" lastOfType={i === CATEGORY_AND_ITEMS[key].length - 1} />
+                                <ExpenseRow value={inputValues[item]} onChange={(event) => handleChange(item, event)} key={item} description={item} amount="1000" lastOfType={i === CATEGORY_AND_ITEMS[key].length - 1} />
                             );
                         })}
                     </Category>
@@ -50,14 +56,22 @@ export default function MainTable() {
     );
 }
 
-function ExpenseRow({ description, amount, lastOfType, customRowStyle, customDescStyle }) {
+function InputComponent({ value, onChange }) {
+    return (
+        <input value={value} onChange={onChange} type="number" className="w-[6rem] text-right focus:outline-none" />
+    );
+}
+
+function ExpenseRow({ description, amount, lastOfType, customRowStyle, customDescStyle, value, onChange }) {
     const newCustomDescStyle = customDescStyle ? customDescStyle : `<border-cyan-600></border-cyan-600>`;
     const newCustomRowStyle = customRowStyle ? customRowStyle : '';
     const borderOfNoneLastType = !lastOfType ? `border-b border-cyan-600` : '';
     return (
         <div className={`${borderOfNoneLastType} ${newCustomRowStyle} flex justify-between pl-4 pr-2`}>
             <dt className={`${newCustomDescStyle} border-r-1 w-[13rem] py-[2px]`}>{description}</dt>
-            <dd className="py-[2px]">{Number(amount).toFixed(2)}</dd>
+            <dd className="py-[2px]">
+                <InputComponent value={value} onChange={onChange}/>
+            </dd>
         </div>
     );
 }
