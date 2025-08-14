@@ -1,8 +1,11 @@
+import MainTable from "./components/MainTable"
+
 function App() {
 
   return (
-    <div>
-      <h1 className="text-8xl">Hello World</h1>
+    <div className="flex flex-col justify-center items-center h-screen">
+      
+      <MainTable />
     </div>
   )
 }
