@@ -30,9 +30,9 @@ export default function MainTable() {
 }
 
 function ExpenseRow({ description, amount, lastOfType, customRowStyle, customDescStyle }) {
-    const newCustomDescStyle = customDescStyle ? customDescStyle : `border-rose-300`;
+    const newCustomDescStyle = customDescStyle ? customDescStyle : `<border-cyan-600></border-cyan-600>`;
     const newCustomRowStyle = customRowStyle ? customRowStyle : '';
-    const borderOfNoneLastType = !lastOfType ? `border-b border-rose-300` : '';
+    const borderOfNoneLastType = !lastOfType ? `border-b border-cyan-600` : '';
     return (
         <div className={`${borderOfNoneLastType} ${newCustomRowStyle} flex justify-between pl-4 pr-2 `}>
             <dt className={`${newCustomDescStyle} border-r-1 w-[13rem] py-[2px]`}>{description}</dt>
@@ -43,8 +43,8 @@ function ExpenseRow({ description, amount, lastOfType, customRowStyle, customDes
 
 function Category({ children, type }) {
     return (
-        <section className="border-x border-rose-300">
-            <h2 className="bg-rose-300 text-rose-900 p-1">{type}</h2>
+        <section className="border-x border-cyan-600">
+            <h2 className="bg-cyan-600 text-neutral-100 font-semibold p-1">{type}</h2>
             <dl>
                 {children}
                 
@@ -56,11 +56,11 @@ function Category({ children, type }) {
 function Summary() {
     const customDecsriptionStyle = "border-white text-right pr-4";
     return (
-        <section className="border-x border-t border-rose-300">
-            <dl className="text-white font-bold">
-                <ExpenseRow description="Total" amount="100" customRowStyle="bg-rose-300" customDescStyle={customDecsriptionStyle} />
-                <ExpenseRow description="Available Cash" amount="0" customRowStyle="bg-green-500" customDescStyle={customDecsriptionStyle}/>
-                <ExpenseRow description="Excess" amount="0" customRowStyle="bg-red-400" customDescStyle={customDecsriptionStyle}/>
+        <section className="border-x border-t border-cyan-600">
+            <dl className="text-neutral-100 font-bold">
+                <ExpenseRow description="Total" amount="100" customRowStyle="bg-cyan-600" customDescStyle={customDecsriptionStyle} />
+                <ExpenseRow description="Available Cash" amount="0" customRowStyle="bg-green-500 border-green-500" customDescStyle={customDecsriptionStyle}/>
+                <ExpenseRow description="Excess" amount="0" customRowStyle="bg-red-400 " customDescStyle={customDecsriptionStyle}/>
             </dl>
         </section>
     );
