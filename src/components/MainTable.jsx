@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react'
+
 const CATEGORY_AND_ITEMS = {
     "House Expense": ["Meralco Main", "Meralco Apartment", "Maynilad Main", "Converge (Internet)"],
     "Clinic": ["Meralco", "Maynilad", "S2S Internet"],
@@ -5,9 +7,28 @@ const CATEGORY_AND_ITEMS = {
     "Contributions": ["SSS", "PhilHealth", "PagIBIG"]
 }
 
+const stateInitKeysAndValues = () => {
+        const newObj = {};
+        Object.entries(CATEGORY_AND_ITEMS).map(([__, values]) => {
+            values.map(value => {
+                newObj[value] = 0;
+            });
+        });
+
+        
+        return newObj;
+}
 
 
 export default function MainTable() {
+    const [ inputValues, setInputValues ] = useState(stateInitKeysAndValues);
+
+    useEffect(() => {
+        Object.entries(inputValues).forEach(item => console.log(`${item[0]} = ${item[1]}`));
+    }, [inputValues])
+
+    
+
     return (
         <div className="border w-sm p-4 rounded-xl">
             {Object.keys(CATEGORY_AND_ITEMS).map(key => {
@@ -34,7 +55,7 @@ function ExpenseRow({ description, amount, lastOfType, customRowStyle, customDes
     const newCustomRowStyle = customRowStyle ? customRowStyle : '';
     const borderOfNoneLastType = !lastOfType ? `border-b border-cyan-600` : '';
     return (
-        <div className={`${borderOfNoneLastType} ${newCustomRowStyle} flex justify-between pl-4 pr-2 `}>
+        <div className={`${borderOfNoneLastType} ${newCustomRowStyle} flex justify-between pl-4 pr-2`}>
             <dt className={`${newCustomDescStyle} border-r-1 w-[13rem] py-[2px]`}>{description}</dt>
             <dd className="py-[2px]">{Number(amount).toFixed(2)}</dd>
         </div>
@@ -43,8 +64,8 @@ function ExpenseRow({ description, amount, lastOfType, customRowStyle, customDes
 
 function Category({ children, type }) {
     return (
-        <section className="border-x border-cyan-600">
-            <h2 className="bg-cyan-600 text-neutral-100 font-semibold p-1">{type}</h2>
+        <section className="border-x border-cyan-600 text-cyan-900">
+            <h2 className="bg-cyan-600 text-neutral-100 font-semibold py-[1px] pl-2">{type}</h2>
             <dl>
                 {children}
                 
@@ -59,8 +80,8 @@ function Summary() {
         <section className="border-x border-t border-cyan-600">
             <dl className="text-neutral-100 font-bold">
                 <ExpenseRow description="Total" amount="100" customRowStyle="bg-cyan-600" customDescStyle={customDecsriptionStyle} />
-                <ExpenseRow description="Available Cash" amount="0" customRowStyle="bg-green-500 border-green-500" customDescStyle={customDecsriptionStyle}/>
-                <ExpenseRow description="Excess" amount="0" customRowStyle="bg-red-400 " customDescStyle={customDecsriptionStyle}/>
+                <ExpenseRow description="Available Cash" amount="0" customRowStyle="bg-emerald-500 border-green-500" customDescStyle={customDecsriptionStyle}/>
+                <ExpenseRow description="Excess" amount="0" customRowStyle="bg-rose-600 " customDescStyle={customDecsriptionStyle}/>
             </dl>
         </section>
     );
