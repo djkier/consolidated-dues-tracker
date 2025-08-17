@@ -14,26 +14,33 @@ const stateInitKeysAndValues = () => {
                 newObj[value] = 0;
             });
         });
-
-        
         return newObj;
 }
 
 
 export default function MainTable() {
     const [ inputValues, setInputValues ] = useState(stateInitKeysAndValues);
+    const [ availableCash, setAvailableCash ] = useState(0);
+
+    const total = Object.values(inputValues).reduce((acc, curr) => acc + curr, 0)
+    const difference = total - availableCash;
 
     useEffect(() => {
-        Object.entries(inputValues).forEach(item => console.log(`${item[0]} = ${item[1]}`));
+        console.log(total);
     }, [inputValues])
+    
 
     const handleChange = (item, event) => {
 
         setInputValues((prev) => ({
             ...prev,
-            [item]: event.target.value
+            [item]: Number(event.target.value)
         }))
     };
+
+    const handleAvailableCash = (e) => {
+        setAvailableCash(Number(e.target.value));
+    }
     
 
     return (
@@ -55,19 +62,19 @@ export default function MainTable() {
                     
                 );
             })}
-            <Summary />
+            <Summary total={total} availableCash={availableCash} handleAvailableCash={handleAvailableCash} difference={difference}/>
 
         </div>
     );
 }
 
-function InputComponent({ value, onChange }) {
+function InputComponent({ value, onChange, readOnly }) {
     return (
-        <input value={value} onChange={onChange} type="number" className="w-[6rem] text-right focus:outline-none" />
+        <input value={value} onChange={onChange} type="number" className="w-[6rem] text-right focus:outline-none" readOnly={readOnly} />
     );
 }
 
-function ExpenseRow({ description, amount, lastOfType, customRowStyle, customDescStyle, value, onChange }) {
+function ExpenseRow({ description, amount, lastOfType, customRowStyle, customDescStyle, value, onChange, readOnly }) {
     const newCustomDescStyle = customDescStyle ? customDescStyle : `<border-cyan-600></border-cyan-600>`;
     const newCustomRowStyle = customRowStyle ? customRowStyle : '';
     const borderOfNoneLastType = !lastOfType ? `border-b border-cyan-600` : '';
@@ -75,7 +82,7 @@ function ExpenseRow({ description, amount, lastOfType, customRowStyle, customDes
         <div className={`${borderOfNoneLastType} ${newCustomRowStyle} flex justify-between px-4`}>
             <dt className={`${newCustomDescStyle} border-r-1 w-[13rem] py-[2px]`}>{description}</dt>
             <dd className="py-[2px]">
-                <InputComponent value={value} onChange={onChange}/>
+                <InputComponent value={value} onChange={onChange} readOnly={readOnly}/>
             </dd>
         </div>
     );
@@ -93,14 +100,14 @@ function Category({ children, type }) {
     );
 }
 
-function Summary() {
-    const customDecsriptionStyle = "border-white text-right pr-4";
+function Summary({ total, availableCash, handleAvailableCash, difference}) {
+    const customDescriptionStyle = "border-white text-right pr-4";
     return (
         <section className="border-x border-t border-cyan-600">
             <dl className="text-neutral-100 font-bold">
-                <ExpenseRow description="Total" amount="100" customRowStyle="bg-cyan-600" customDescStyle={customDecsriptionStyle} />
-                <ExpenseRow description="Available Cash" amount="0" customRowStyle="bg-emerald-500 border-green-500" customDescStyle={customDecsriptionStyle}/>
-                <ExpenseRow description="Excess" amount="0" customRowStyle="bg-rose-600 " customDescStyle={customDecsriptionStyle}/>
+                <ExpenseRow description="Total" value={total} readOnly customRowStyle="bg-cyan-600" customDescStyle={customDescriptionStyle}  />
+                <ExpenseRow description="Available Cash" value={availableCash} onChange={handleAvailableCash} customRowStyle="bg-emerald-500 border-green-500" customDescStyle={customDescriptionStyle}/>
+                <ExpenseRow description="Excess" value={difference} readOnly amount="0" customRowStyle="bg-rose-600 " customDescStyle={customDescriptionStyle}/>
             </dl>
         </section>
     );
