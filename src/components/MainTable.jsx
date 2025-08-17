@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react'
+import { Category, Summary } from './main-table-comps/Sections'
+import ExpenseRow from './main-table-comps/InputComps'
 
 const CATEGORY_AND_ITEMS = {
     "House Expense": ["Meralco Main", "Meralco Apartment", "Maynilad Main", "Converge (Internet)"],
@@ -65,50 +67,5 @@ export default function MainTable() {
             <Summary total={total} availableCash={availableCash} handleAvailableCash={handleAvailableCash} difference={difference}/>
 
         </div>
-    );
-}
-
-function InputComponent({ value, onChange, readOnly }) {
-    return (
-        <input value={value} onChange={onChange} type="number" className="w-[6rem] text-right focus:outline-none" readOnly={readOnly} />
-    );
-}
-
-function ExpenseRow({ description, amount, lastOfType, customRowStyle, customDescStyle, value, onChange, readOnly }) {
-    const newCustomDescStyle = customDescStyle ? customDescStyle : `<border-cyan-600></border-cyan-600>`;
-    const newCustomRowStyle = customRowStyle ? customRowStyle : '';
-    const borderOfNoneLastType = !lastOfType ? `border-b border-cyan-600` : '';
-    return (
-        <div className={`${borderOfNoneLastType} ${newCustomRowStyle} flex justify-between px-4`}>
-            <dt className={`${newCustomDescStyle} border-r-1 w-[13rem] py-[2px]`}>{description}</dt>
-            <dd className="py-[2px]">
-                <InputComponent value={value} onChange={onChange} readOnly={readOnly}/>
-            </dd>
-        </div>
-    );
-}
-
-function Category({ children, type }) {
-    return (
-        <section className="border-x border-cyan-600 text-cyan-900">
-            <h2 className="bg-cyan-600 text-neutral-100 font-semibold py-[1px] pl-2">{type}</h2>
-            <dl>
-                {children}
-                
-            </dl>
-        </section>
-    );
-}
-
-function Summary({ total, availableCash, handleAvailableCash, difference}) {
-    const customDescriptionStyle = "border-white text-right pr-4";
-    return (
-        <section className="border-x border-t border-cyan-600">
-            <dl className="text-neutral-100 font-bold">
-                <ExpenseRow description="Total" value={total} readOnly customRowStyle="bg-cyan-600" customDescStyle={customDescriptionStyle}  />
-                <ExpenseRow description="Available Cash" value={availableCash} onChange={handleAvailableCash} customRowStyle="bg-emerald-500 border-green-500" customDescStyle={customDescriptionStyle}/>
-                <ExpenseRow description="Excess" value={difference} readOnly amount="0" customRowStyle="bg-rose-600 " customDescStyle={customDescriptionStyle}/>
-            </dl>
-        </section>
     );
 }
