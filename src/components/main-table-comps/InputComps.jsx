@@ -1,11 +1,15 @@
 function InputComponent({ value, onChange, readOnly }) {
-
+    const handleZero = (e) => {
+        if (e.target.value == 0) {
+            e.target.select();
+        }
+    }
     return (
-        <input value={value} onChange={onChange}  type="number" className="w-[6rem] text-right focus:outline-none" readOnly={readOnly} />
+        <input value={value} onChange={onChange}  type="number" onFocus={handleZero} className="w-[6rem] text-right focus:outline-none" readOnly={readOnly} />
     );
 }
 
-export default function ExpenseRow({ description, amount, lastOfType, customRowStyle, customDescStyle, value, onChange, readOnly }) {
+export default function ExpenseRow({ description, lastOfType, customRowStyle, customDescStyle, value, onChange, readOnly }) {
     const newCustomDescStyle = customDescStyle ? customDescStyle : `<border-cyan-600></border-cyan-600>`;
     const newCustomRowStyle = customRowStyle ? customRowStyle : '';
     const borderOfNoneLastType = !lastOfType ? `border-b border-cyan-600` : '';
