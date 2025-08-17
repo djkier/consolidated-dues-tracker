@@ -1,4 +1,7 @@
 function InputComponent({ value, name, onChange, readOnly }) {
+
+
+
     const handleZero = (e) => {
         if (e.target.value == 0) {
             e.target.select();

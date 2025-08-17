@@ -13,7 +13,7 @@ const stateInitKeysAndValues = () => {
         const newObj = {};
         Object.entries(CATEGORY_AND_ITEMS).map(([__, values]) => {
             values.map(value => {
-                newObj[value] = 0;
+                newObj[value] = 0
             });
         });
         return newObj;
@@ -41,6 +41,7 @@ export default function MainTable() {
     };
 
     const handleAvailableCash = (e) => {
+
         setAvailableCash(Number(e.target.value));
     }
     
