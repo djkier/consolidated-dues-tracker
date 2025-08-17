@@ -25,18 +25,18 @@ export default function MainTable() {
     const [ availableCash, setAvailableCash ] = useState(0);
 
     const total = Object.values(inputValues).reduce((acc, curr) => acc + curr, 0)
-    const difference = total - availableCash;
+    const difference = availableCash - total;
 
     useEffect(() => {
         console.log(total);
     }, [inputValues])
     
 
-    const handleChange = (item, event) => {
+    const handleChange = (e) => {
 
         setInputValues((prev) => ({
             ...prev,
-            [item]: Number(event.target.value)
+            [e.target.name]: Number(e.target.value)
         }))
     };
 
@@ -53,7 +53,8 @@ export default function MainTable() {
                         {CATEGORY_AND_ITEMS[key].map((item, i)=> {
                             return (
                                 <ExpenseRow value={inputValues[item]} 
-                                    onChange={(event) => handleChange(item, event)} 
+                                    name={item}
+                                    onChange={handleChange} 
                                     key={item} 
                                     description={item} 
                                     amount="1000" 
