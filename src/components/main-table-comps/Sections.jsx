@@ -18,9 +18,9 @@ export function Summary({ total, availableCash, handleAvailableCash, difference}
     return (
         <section className="border-x border-t border-cyan-600">
             <dl className="text-neutral-100 font-bold">
-                <ExpenseRow description="Total" value={total} readOnly customRowStyle="bg-cyan-600" customDescStyle={customDescriptionStyle}  />
+                <ExpenseRow description="Total" value={total.toFixed(2)} readOnly customRowStyle="bg-cyan-600" customDescStyle={customDescriptionStyle}  />
                 <ExpenseRow description="Available Cash" value={availableCash} onChange={handleAvailableCash} customRowStyle="bg-emerald-500 border-white" customDescStyle={customDescriptionStyle}/>
-                <ExpenseRow description={thirdRowTitle} value={difference} readOnly amount="0" customRowStyle={difference >= 0 ? "bg-emerald-500" : "bg-rose-600"} customDescStyle={customDescriptionStyle}/>
+                <ExpenseRow description={thirdRowTitle} value={difference.toFixed(2)} readOnly amount="0" customRowStyle={difference >= 0 ? "bg-emerald-500" : "bg-rose-600"} customDescStyle={customDescriptionStyle}/>
             </dl>
         </section>
     );

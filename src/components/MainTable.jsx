@@ -27,11 +27,6 @@ export default function MainTable() {
     const total = Object.values(inputValues).reduce((acc, curr) => acc + curr, 0)
     const difference = availableCash - total;
 
-    useEffect(() => {
-        console.log(total);
-    }, [inputValues])
-    
-
     const handleChange = (e) => {
 
         setInputValues((prev) => ({
@@ -47,7 +42,7 @@ export default function MainTable() {
     
 
     return (
-        <div className="border w-sm p-4 rounded-xl">
+        <div className="border border-cyan-600 w-sm p-4 rounded-2xl m-4">
             {Object.keys(CATEGORY_AND_ITEMS).map(key => {
                 return (
                     <Category type={key} key={key}>
