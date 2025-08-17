@@ -5,7 +5,7 @@ function InputComponent({ value, name, onChange, readOnly }) {
         }
     }
     return (
-        <input value={value} onChange={onChange}  name={name} type="number" onFocus={handleZero} className="w-[6rem] text-right focus:outline-none" readOnly={readOnly} />
+        <input value={value} onChange={onChange}  name={name} type="number" onFocus={handleZero} className="w-[6rem] text-right focus:outline-none" readOnly={readOnly} autoFocus={name === "Meralco Main"}/>
     );
 }
 

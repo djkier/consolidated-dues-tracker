@@ -22,7 +22,7 @@ const stateInitKeysAndValues = () => {
 
 export default function MainTable() {
     const [ inputValues, setInputValues ] = useState(stateInitKeysAndValues);
-    const [ availableCash, setAvailableCash ] = useState(0);
+    const [ availableCash, setAvailableCash ] = useState(0.00);
 
     const total = Object.values(inputValues).reduce((acc, curr) => acc + curr, 0)
     const difference = availableCash - total;
